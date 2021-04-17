@@ -1,6 +1,0 @@
-cd ~/PROGRAMACION/api-de-recetas
-
-docker-compose run app sh -c "
-
-docker-compose run app sh -c "python manage.py test"
-

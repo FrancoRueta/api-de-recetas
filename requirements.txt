@@ -1,3 +1,11 @@
+# La razon del >= x.x.x,<x es debido a lo siguiente:
+# las aplicaciones reciben actualizaciones constantemente, usualmente
+# con el objetivo de solventar bugs o mejorar la seguridad, pero
+# a su vez, estas actualizaciones pueden romper codigo que use
+# estas versiones antiguas. Por eso, buscamos instalar una version
+# que sea la mas nueva dentro de las que no disrupcionan nuestro codigo.
+
 Django>= 2.1.3,<2.2.0
 djangorestframework>=3.9.0,<3.10.0
-flake8>=3.6.0,<3.7.0
+psycopg2>=2.7.5,<2.8.0
+#flake8>=3.6.0,<3.7.0
