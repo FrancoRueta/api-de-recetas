@@ -40,7 +40,7 @@ class PrivateIngredientsApiTests(TestCase):
 
     
     def test_retrieve_ingredient_list(self):
-        "Testea el retorno de una lista de ingredientes."
+        """Testea el retorno de una lista de ingredientes."""
         Ingredient.objects.create(user=self.user,name='Chocolate')
         Ingredient.objects.create(user=self.user,name='Albahaca')
         
@@ -52,7 +52,7 @@ class PrivateIngredientsApiTests(TestCase):
     
 
     def test_ingredients_limited_to_user(self):
-        "Testea que los ingredientes sean solo para el usuario autenticado."
+        """Testea que los ingredientes sean solo para el usuario autenticado."""
         usuario2 = get_user_model().objects.create_user(
             'test2@francorueta.com',
             'pass1234'
@@ -65,8 +65,26 @@ class PrivateIngredientsApiTests(TestCase):
         self.assertEqual(len(res.data),1)
         self.assertEqual(res.data[0]['name'], ingrediente.name)
         
+    def test_create_ingredient_successful(self):
+        """Testea la creacion correcta de un nuevo ingrediente"""
+        parametros = {'name':'Tomate'}
+        self.client.post(INGREDIENTS_URL,parametros)
 
+        exists = Ingredient.objects.filter(
+            user=self.user,
+            name=parametros['name'],
+        ).exists()
+        self.assertTrue(exists)
+    
 
+    def test_create_ingredient_invalid(self):
+        """Testea la creacion INcorrecta de un nuevo ingrediente"""
+        parametros = {'name':''}
+        res = self.client.post(INGREDIENTS_URL,parametros)
+        
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+        
 
 
 
